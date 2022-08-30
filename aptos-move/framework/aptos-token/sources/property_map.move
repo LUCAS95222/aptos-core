@@ -1,5 +1,6 @@
 /// PropertyMap is a specialization of SimpleMap for Tokens.
 /// It maps a String key to a PropertyValue that consists of type (string) and value (vecotr<u8>)
+/// test code
 module aptos_token::property_map {
     use std::vector;
     use std::string::String;
