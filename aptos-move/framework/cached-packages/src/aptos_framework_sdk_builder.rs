@@ -166,7 +166,7 @@ pub enum EntryFunctionCall {
     StakeIncreaseLockup {},
 
     /// Initialize the validator account and give ownership to the signing account
-    /// except it leaves the ValidatorConfig to be set by another entity.
+    /// except it leaves the ValidatorConfig to be set by another entity. // TODO: note
     /// Note: this triggers setting the operator and owner, set it to the account's address
     /// to set later.
     StakeInitializeStakeOwner {
@@ -773,7 +773,7 @@ pub fn stake_increase_lockup() -> TransactionPayload {
 }
 
 /// Initialize the validator account and give ownership to the signing account
-/// except it leaves the ValidatorConfig to be set by another entity.
+/// except it leaves the ValidatorConfig to be set by another entity. // TODO: note
 /// Note: this triggers setting the operator and owner, set it to the account's address
 /// to set later.
 pub fn stake_initialize_stake_owner(

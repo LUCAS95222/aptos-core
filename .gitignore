@@ -4,7 +4,7 @@
 **/target
 **/*.rs.bk
 .idea/
-
+.history/
 # Ignore wallet mnemonic files used for deterministic key derivation
 *.mnemonic
 
