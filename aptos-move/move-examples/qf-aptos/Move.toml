@@ -1,0 +1,19 @@
+[package]
+name = "QF"
+version = "0.0.0"
+
+[addresses]
+std = "0x1"
+QF = "_"
+
+[dev-addresses]
+QF = "0xC0FFEE"
+
+[dependencies]
+AptosFramework = { local = "../../framework/aptos-framework" }
+AptosToken = { local = "../../framework/aptos-token" }
+
+#[dependencies.AptosFramework]
+#git = 'https://github.com/aptos-labs/aptos-core.git'
+#rev = 'main'
+#subdir = 'aptos-move/framework/aptos-framework'
