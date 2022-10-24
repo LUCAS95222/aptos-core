@@ -1,5 +1,5 @@
 //:!:>moon
-module MoonCoin::moon_coin {
+module MyMoonCoin::moon_coin {
     struct MoonCoin {}
 
     fun init_module(sender: &signer) {

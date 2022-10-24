@@ -1,0 +1,11 @@
+[package]
+name = "MyExamples"
+version = "0.0.1"
+
+[addresses]
+MyMoonCoin = "0x223ba4fccb28befe994b429b6e3b9876451597aa7f15ccc531a89bb68c4f3cd0"
+#file_1 = "0xf464d7b183532ca1756e66038b8de5146ff215661446b2014d66ceae27168e72"
+#file_2 = "0xf464d7b183532ca1756e66038b8de5146ff215661446b2014d66ceae27168e72"
+
+[dependencies]
+AptosFramework = { local = "../../framework/aptos-framework" }
