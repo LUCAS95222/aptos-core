@@ -1,2 +1,2 @@
 export const localStorageKey = 'hippoWallet';
-export const aptosQFAddress = '0x558ae1ad9fa78c827be14033d9bf549dde67129a9d72205bd7b30b4e18f73037';
+export const aptosQFAddress = '0x223ba4fccb28befe994b429b6e3b9876451597aa7f15ccc531a89bb68c4f3cd0';

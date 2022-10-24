@@ -4,7 +4,7 @@ version = "0.0.0"
 
 [addresses]
 std = "0x1"
-QF = "_"
+QF = "0x223ba4fccb28befe994b429b6e3b9876451597aa7f15ccc531a89bb68c4f3cd0"
 
 [dev-addresses]
 QF = "0xC0FFEE"

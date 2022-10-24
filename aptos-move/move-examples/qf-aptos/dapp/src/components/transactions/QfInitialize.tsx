@@ -20,7 +20,7 @@ export const Initialize = ({ onSendTransaction, sender }: ISendTransaction) => {
     maxGasAmount: '10000',
     expiration: new Date().getTime().toString(),
     payload: {
-      arguments: [senderAddress],
+      arguments: ['0xf56b98bb0c73956924af03735c33f108cf19cd396a92b0ed4472301eb7225c70' as const],
       function: aptosQFAddress + '::qf::initialize',
       type: 'entry_function_payload' as const,
       typeArguments: [],

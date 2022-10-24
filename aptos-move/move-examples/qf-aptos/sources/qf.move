@@ -2,7 +2,7 @@
 /// noodles@dorahacks.com
 /// 2020-09-30
 module QF::qf {
-    friend QF::qf_tests;
+    // friend QF::qf_tests;
 
     // use std::debug;
     use std::bcs;
@@ -73,12 +73,12 @@ module QF::qf {
         owner: address,
         escrow_address: address,
         coin_type: string::String,
-        tax_adjustment_multiplier: u64,
+        tax_adjustment_multiplier: u64, // UNUSED
         voting_unit: u64,
         status: u64,
-        fund: u64,
+        fund: u64, // UNUSED, can set but meaningless
         project_number: u64,
-        project_number_banned: u64,
+        project_number_banned: u64, // UNUSED
         total_area: u64,
         top_area: u64,
         min_area: u64,
@@ -89,9 +89,9 @@ module QF::qf {
 
     struct Track has store {
         id: u64,
-        area: u64,
+        area: u64, // UNUSED
         project_number: u64,
-        total_area: u64,
+        total_area: u64, // UNUSED
         top_area: u64,
         min_area: u64,
         min_area_index: u64,
@@ -102,7 +102,7 @@ module QF::qf {
         track_id: u64,
         owner: address,
         area: u64,
-        status: u64,
+        status: u64, // unupdated
         votes: u64,
         contribution: u64,
         voters: Table<address, u64>,
@@ -133,7 +133,7 @@ module QF::qf {
         resource: address,
         coin: coin::Coin<CoinType>
     ) acquires Escrow {
-        let escrow = borrow_global_mut<Escrow<CoinType>>(resource);
+        let escrow = borrow_global_mut<Escrow<CoinType>>(resource); //  when resouce has Escrow? ==> start_round()
         coin::merge(&mut escrow.coin, coin);
     }
 
@@ -143,7 +143,7 @@ module QF::qf {
     ) acquires Data {
         assert!(
             exists<Data>(@QF),
-            error::already_exists(ERR_NOT_PUBLISHED),
+            error::already_exists(ERR_NOT_PUBLISHED), // TODO: inappropriate error fn, 'not_found' is better?
         );
         assert!(
             !require_admin || admin() == operator_address || @QF == operator_address,
@@ -163,7 +163,7 @@ module QF::qf {
         let data = borrow_global<Data>(@QF);
         let round = vector::borrow(&data.rounds, round_id-1);
         assert!(
-            project_id > 0 && project_id <= round.project_number,
+            project_id > 0 && project_id <= round.project_number, // how to figure out `project_id`
             error::invalid_argument(ERR_INVALID_PROJECT_ID),
         );
     }
@@ -180,7 +180,7 @@ module QF::qf {
         let data = borrow_global_mut<Data>(@QF);
         let round = vector::borrow_mut(&mut data.rounds, round_id-1);
         assert!(
-            round.status == ROUND_STATUS__OK,
+            round.status == ROUND_STATUS__OK, // TODO: duplicate validation
             error::invalid_state(ERR_ROUND_STATUS_NOT_OK)
         );
         assert!(
@@ -270,7 +270,7 @@ module QF::qf {
     /// Initialize the QF contract, set the admin address.
     public entry fun initialize(
         owner: &signer,
-        admin: address,
+        admin: address, // operator
     ) {
         let owner_addr = signer::address_of(owner);
         assert!(
@@ -299,12 +299,12 @@ module QF::qf {
         voting_unit: u64,
     ) acquires Data {
         let admin_addr = signer::address_of(admin);
-        check_operator(admin_addr, true);
+        check_operator(admin_addr, true);  // need `admin_addr` == operator or @QF
         assert_is_coin<CoinType>();
 
         let decimals = coin::decimals<CoinType>();
         assert!(
-            voting_unit > 0 && voting_unit <= math::pow_10(decimals),
+            voting_unit > 0 && voting_unit <= math::pow_10(decimals), // TODO: why need `voting_unit <= decimals?`
             error::invalid_argument(ERR_INVALID_VOTING_UNIT)
         );
 
@@ -386,7 +386,7 @@ module QF::qf {
             round.status == ROUND_STATUS__OK,
             error::invalid_argument(ERR_ROUND_STATUS_NOT_OK)
         );
-        round.fund = amount;
+        round.fund = amount; // TODO: no validation for `amount`, can set to `0` and `fund` unused
         event::emit_event(&mut data.events, QFEvent {
             type: EVENT_TYPE__SET_FUND,
             account: admin_addr,
@@ -410,7 +410,7 @@ module QF::qf {
             round.status == ROUND_STATUS__OK,
             error::invalid_argument(ERR_ROUND_STATUS_NOT_OK)
         );
-        let track_id = vector::length(&round.tracks) + 1;
+        let track_id = vector::length(&round.tracks) + 1; // TODO: can add multiple tracks
         let track = Track {
             id: track_id,
             area: 0,
@@ -462,7 +462,7 @@ module QF::qf {
         amounts: vector<u64>,
     ) acquires Data, Escrow {
         let account_addr = signer::address_of(account);
-        check_operator(account_addr, false);
+        check_operator(account_addr, false); // PUBLIC to users
 
         let length = vector::length(&project_ids);
         assert!(
@@ -489,7 +489,7 @@ module QF::qf {
 
             // Collect the voting coin
             let vote_coin = coin::withdraw<CoinType>(account, amount);
-            merge_coin<CoinType>(round.escrow_address, vote_coin);
+            merge_coin<CoinType>(round.escrow_address, vote_coin); // TODO: decimal/`voting_unit`, when will be used?
 
             let project = vector::borrow_mut(&mut round.projects, project_id-1);
             assert!(
@@ -505,7 +505,7 @@ module QF::qf {
             );
 
             // Update the voting amount
-            let votes = amount * round.voting_unit / pow_10_decimals;
+            let votes = amount * round.voting_unit / pow_10_decimals; // TODO: cause `voting_unit <= pow_10_decimals`, is there exist precsion problem? such as 333 * 97 / 100
             project.votes = project.votes + votes;
 
             project.contribution = project.contribution + amount;
@@ -558,7 +558,7 @@ module QF::qf {
                 type: EVENT_TYPE__VOTE,
                 account: account_addr,
                 round: round_id,
-                project: round.project_number,
+                project: round.project_number, // TODO: => project_id
                 amount,
             });
 
@@ -598,7 +598,7 @@ module QF::qf {
         round_id: u64,
     ) acquires Data, Escrow {
         let account_addr = signer::address_of(account);
-        check_operator(account_addr, true);
+        check_operator(account_addr, true); // TODO: [centralizaion] admin / @QF can withdraw all coin
 
         let data = borrow_global_mut<Data>(@QF);
         let round = vector::borrow_mut(&mut data.rounds, round_id-1);

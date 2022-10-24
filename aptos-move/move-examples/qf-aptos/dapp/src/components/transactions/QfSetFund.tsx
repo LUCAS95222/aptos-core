@@ -24,7 +24,7 @@ export const SetFund = ({ onSendTransaction, sender }: ISendTransaction) => {
       function: aptosQFAddress + '::qf::set_fund',
       type: 'entry_function_payload' as const,
       typeArguments: [
-        '0x1::aptos_coin::AptosCoin',
+      
       ],
     },
   };

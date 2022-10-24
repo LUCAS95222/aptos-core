@@ -14,6 +14,7 @@ import { Loader } from './components/Loader';
 import { Initialize } from './components/transactions/QfInitialize';
 import { StartRound } from './components/transactions/QfStartRound';
 import { BatchUploadProject } from './components/transactions/QfBatchUploadProject';
+import { SetFund } from './components/transactions/QfSetFund';
 import { BatchVote } from './components/transactions/QfBatchVote';
 import { EndRound } from './components/transactions/QfEndRound';
 import { WithdrawAll } from './components/transactions/QfWithdrawAll';
@@ -112,6 +113,7 @@ export const HippoPontemWallet = ({ autoConnect }: { autoConnect: boolean }) => 
         <AddTrack sender={currentAddress} onSendTransaction={handleSendTransaction} />
         <StartRound sender={currentAddress} onSendTransaction={handleSendTransaction} />
         <BatchUploadProject sender={currentAddress} onSendTransaction={handleSendTransaction} />
+        <SetFund sender={currentAddress} onSendTransaction={handleSendTransaction} />
         <BatchVote sender={currentAddress} onSendTransaction={handleSendTransaction} />
         <EndRound sender={currentAddress} onSendTransaction={handleSendTransaction} />
         <WithdrawAll sender={currentAddress} onSendTransaction={handleSendTransaction} />

@@ -20,7 +20,7 @@ export const BatchUploadProject = ({ onSendTransaction, sender }: ISendTransacti
     maxGasAmount: '10000',
     expiration: new Date().getTime().toString(),
     payload: {
-      arguments: ['1', '1', ['1', '2']],
+      arguments: ['1', '2', ['1', '2']],
       function: aptosQFAddress + '::qf::batch_upload_project',
       type: 'entry_function_payload' as const,
       typeArguments: [],
