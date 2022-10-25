@@ -24,17 +24,17 @@ module QF::qf {
     const ROUND_STATUS__WITHDRAWN: u64 = 2;
 
     const PROJECT_STATUS__OK: u64 = 0;
-    const PROJECT_STATUS__BANNED: u64 = 1;
-    const PROJECT_STATUS__WITHDRAWN: u64 = 2;
+    const PROJECT_STATUS__BANNED: u64 = 1; // UNUSED
+    const PROJECT_STATUS__WITHDRAWN: u64 = 2;  // UNUSED
 
     const EVENT_TYPE__START_ROUND: u64 = 1;
-    const EVENT_TYPE__DONATE: u64 = 2;
+    const EVENT_TYPE__DONATE: u64 = 2; // UNUSED
     const EVENT_TYPE__UPLOAD_PROJECT: u64 = 3;
     const EVENT_TYPE__VOTE: u64 = 4;
     const EVENT_TYPE__END_ROUND: u64 = 5;
-    const EVENT_TYPE__WITHDRAW_GRANTS: u64 = 6;
-    const EVENT_TYPE__WITHDRAW_FEE: u64 = 7;
-    const EVENT_TYPE__BAN_PROJECT: u64 = 8;
+    const EVENT_TYPE__WITHDRAW_GRANTS: u64 = 6; // UNUSED
+    const EVENT_TYPE__WITHDRAW_FEE: u64 = 7; // UNUSED
+    const EVENT_TYPE__BAN_PROJECT: u64 = 8; // UNUSED
     const EVENT_TYPE__WITHDRAW_ALL: u64 = 9;
     const EVENT_TYPE__SET_FUND: u64 = 10;
     const EVENT_TYPE__ADD_TRACK: u64 = 11;
@@ -50,13 +50,13 @@ module QF::qf {
     const ERR_ROUND_STATUS_NOT_ENDED: u64 = 3006;
     const ERR_PROJECT_STATUS_NOT_OK: u64 = 3007;
     const ERR_INSUFFICIENT_BALANCES: u64 = 3008;
-    const ERR_COIN_TYPE_MISMATCH: u64 = 3009;
+    const ERR_COIN_TYPE_MISMATCH: u64 = 3009; // UNUSED
     const ERR_INVALID_VOTING_UNIT: u64 = 3010;
     const ERR_VOTING_AMOUNT_TOO_SMALL: u64 = 3011;
     const ERR_INVALID_ROUND_ID: u64 = 3012;
     const ERR_INVALID_PROJECT_ID: u64 = 3013;
-    const ERR_HACKER_NOT_IN_ROUND_WHITELIST: u64 = 3014;
-    const ERR_PROJECT_NUMBER_NOT_MATCH: u64 = 3015;
+    const ERR_HACKER_NOT_IN_ROUND_WHITELIST: u64 = 3014; // UNUSED
+    const ERR_PROJECT_NUMBER_NOT_MATCH: u64 = 3015; // UNUSED
     const ERR_INVALID_ARGUMENT: u64 = 3016;
 //<:!:error
 
@@ -163,7 +163,7 @@ module QF::qf {
         let data = borrow_global<Data>(@QF);
         let round = vector::borrow(&data.rounds, round_id-1);
         assert!(
-            project_id > 0 && project_id <= round.project_number, // how to figure out `project_id`
+            project_id > 0 && project_id <= round.project_number,
             error::invalid_argument(ERR_INVALID_PROJECT_ID),
         );
     }
@@ -410,7 +410,7 @@ module QF::qf {
             round.status == ROUND_STATUS__OK,
             error::invalid_argument(ERR_ROUND_STATUS_NOT_OK)
         );
-        let track_id = vector::length(&round.tracks) + 1; // TODO: can add multiple tracks
+        let track_id = vector::length(&round.tracks) + 1; // : can add multiple tracks
         let track = Track {
             id: track_id,
             area: 0,

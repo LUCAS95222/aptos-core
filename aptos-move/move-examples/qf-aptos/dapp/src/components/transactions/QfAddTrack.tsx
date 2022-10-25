@@ -20,7 +20,7 @@ export const AddTrack = ({ onSendTransaction, sender }: ISendTransaction) => {
     maxGasAmount: '10000',
     expiration: new Date().getTime().toString(),
     payload: {
-      arguments: ['1'],
+      arguments: ['3'],
       function: aptosQFAddress + '::qf::add_track',
       type: 'entry_function_payload' as const,
       typeArguments: [

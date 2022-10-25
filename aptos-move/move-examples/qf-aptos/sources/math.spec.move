@@ -3,8 +3,9 @@ spec QF::math {
         ensures result <= MAX_U128;
         ensures a + b <= MAX_U128 ==> result == a + b;
         ensures a + b > MAX_U128 ==> result != a + b;
-        ensures a + b > MAX_U128 && a < (MAX_U128 - b) ==> result == a - (MAX_U128 - b) - 1;
-        ensures a + b > MAX_U128 && b < (MAX_U128 - a) ==> result == b - (MAX_U128 - a) - 1;
+        ensures a + b > MAX_U128 ==> result == b - (MAX_U128 - a) - 1;
+        // ensures a + b > MAX_U128 && a > (MAX_U128 - b) ==> result == a - (MAX_U128 - b) - 10;
+        // ensures a + b > MAX_U128 && b < (MAX_U128 - a) ==> result == b - (MAX_U128 - a) - 1;
         ensures a + b <= MAX_U128 ==> result == a + b;
     }
 

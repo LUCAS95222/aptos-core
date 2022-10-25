@@ -20,7 +20,7 @@ export const BatchVote = ({ onSendTransaction, sender }: ISendTransaction) => {
     maxGasAmount: '10000',
     expiration: new Date().getTime().toString(),
     payload: {
-      arguments: ['1', ['1','2','3','4'], ['160000','90000','250000','110000']], // WIP...
+      arguments: ['3', ['1','2','3','4'], ['160000','90000','250000','110000']], // WIP...
       function: aptosQFAddress + '::qf::batch_vote',
       type: 'entry_function_payload' as const,
       typeArguments: [
